@@ -1,25 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React,{useState} from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import SearchBar from "./components/SearchBar";
+import Home from "./components/Home";
+import Current from "./components/Current";
+import Daily from "./components/Daily";
+import Hourly from "./components/Hourly"
+import CustomNavbar from './components/CustomNavbar';
+
 
 function App() {
+  const [cityname, setCityName] = useState("Ranchi");
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router>
+        <div>
+          <CustomNavbar setCityName={setCityName}/>
+          <Route exact path="/" render={()=><Home/>}/>
+          <Route path="/current" render={()=><Current cityname={cityname}/>}/>
+          <Route path="/daily" render={()=><Daily cityname={cityname}/>}/>
+          <Route path="/hourly" render={()=><Hourly cityname={cityname}/>}/>
+        </div>
+    </Router>
+    </>
   );
 }
 
